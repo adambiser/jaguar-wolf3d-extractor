@@ -374,8 +374,10 @@ class SoundFontBuilder:
 
     @staticmethod
     def _add_records(record_list, records_to_add):
+        # Always return the current index, even when not actually adding.
         index = len(record_list) - 1
         if records_to_add:
+            # Can't use extend because we're inserting in front of the terminal record.
             for record in records_to_add:
                 record_list.insert(-1, record)
         return index
