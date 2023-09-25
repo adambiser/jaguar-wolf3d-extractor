@@ -122,8 +122,8 @@ class WADFile:
             if name in ("ACHTUN18",):
                 return LumpType.Sound, 18000
             if name.startswith("D_") or name in ("KEY02",):
-                return LumpType.Sound, 22100
-            return LumpType.Sound, 11050
+                return LumpType.Sound, 22050
+            return LumpType.Sound, 11025
         elif last_marker == "SONGEND" and (name.startswith("I") or name.startswith("P")):
             return LumpType.Instrument
         return LumpType.Unknown
@@ -376,7 +376,7 @@ class WADFile:
         # The first 16 bytes are header.  Skip them.
         data = data[16:]
         with open(filename + ".wav", "wb") as f:
-            writer = wav.Writer(22100, 1, 8)
+            writer = wav.Writer(22050, 1, 8)
             writer.write(f, data, loop_start)
 
     # noinspection PyMethodMayBeStatic
@@ -417,7 +417,7 @@ class WADFile:
                 loop_end = 0
             # The first 16 bytes are header.  Skip them.
             data = data[16:]
-            return (sf2.add_sample(name, data, loop_offset, loop_end, 22100, pitch & 0x7f,
+            return (sf2.add_sample(name, data, loop_offset, loop_end, 22050, pitch & 0x7f,
                                    bits_per_sample=8, signed=False),
                     sf2.add_instrument(name),
                     bool(loop_offset > 0))
