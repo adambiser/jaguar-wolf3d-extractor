@@ -35,16 +35,16 @@ def extract_files(file, output_path, separate_maps=False, lumps=None, raw=False,
 def main():
     parser = argparse.ArgumentParser(description="Extracts files from the Jaguar port of Wolfenstein 3-D.")
     parser.add_argument("-i", "--input", type=str, help="The path to the Jaguar j64 file.", required=True)
-    parser.add_argument("-o", "--outpath", type=str, help="The path to extract the data to.")
-    parser.add_argument("--separatemaps", action="store_true", help="Save maps as individual files instead of one file "
-                                                                    "with all.")
+    parser.add_argument("-o", "--outpath", type=str, help=r"The path to extract the data to. Default: .\output",
+                        default=r".\output")
+    parser.add_argument("--separatemaps", action="store_true", help="When set, saves maps as individual files instead "
+                                                                    "of one file with all.")
     parser.add_argument("--sprites128", action="store_true", help="When set, sprites will be exported as 128x128 "
                                                                   "instead of their original size.")
     parser.add_argument("--raw", action="store_true", help="When set, dumps the raw lump data.")
-    parser.add_argument("-l", "--lumps", type=str, nargs="*", help="The lumps to extract.  Defaults to all lumps "
+    parser.add_argument("-l", "--lumps", type=str, nargs="*", help="The lump names to extract.  Defaults to all lumps "
                                                                    "unless lumptype is given.")
     parser.add_argument("-t", "--lumptype", type=str, help="Extracts all lumps with the given lump type.")
-    parser.set_defaults(outpath=r".\output")
     # parser.print_help()
     args = parser.parse_args()
     extract_files(file=args.input, output_path=args.outpath, separate_maps=args.separatemaps, lumps=args.lumps,
